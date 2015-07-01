@@ -1,0 +1,127 @@
+create table juegos.tfacultad(
+idFacultad serial,
+nombreFacultad varchar(50),
+primary key (idFacultad)
+);
+
+create table juegos.tescuela(
+idEscuela serial,
+nombreEscuela varchar(50),
+idFacultad int,
+primary key (idEscuela),
+foreign key (idFacultad) references juegos.tfacultad(idFacultad)
+);
+
+create table juegos.tdiciplina(
+idDiciplina serial,
+nombreDiciplina varchar(50),
+reglametoDiciplina bytea,
+costoDiciplina double,
+numeroJugadores int,
+idcampeonato int,
+primary key (idDiciplina),
+foreign key (idcampeonato) references tcampeonato (idcampeonato)
+);
+
+create table juegos.tequipo(
+idEquipo serial,
+nombreEquipo varchar(50),
+generoEquipo varchar (10),
+idEscuela int,
+primary key (idEquipo),
+foreign key (idEscuela) references juegos.tescuela(idEscuela)
+);
+
+create table juegos.jugador(
+idjugador serial,
+cedulaJugador varchar(10),
+nombreJugador varchar(50),
+apellidoJugador varchar(50),
+SemestreJugador varchar(50),
+telefonoJugador varchar(10),
+fotoJugador bytea,
+idEquipo int,
+primary key (idJugador),
+foreign key (idEquipo) references juegos.tequipo(idEquipo)
+);
+
+create table juegos.tcampeonato(
+idcampeonato serial,
+nombreCampeonato varchar(50),
+fechaInicio date,
+fechaFinal date,
+primary key (idcampeonato)
+);
+
+create table juegos.tinscripcion(
+idEquipo int,
+idDiciplina int,
+fechaInscripcion date,
+primary key (idEquipo,IdDiciplina),
+);
+
+
+create table juegos.tarbitro(
+idArbitro serial,
+nombreArbitro varchar(50),
+apellidoArbitro varchar (50),
+telefonoArbitro varchar (10),
+primary key (idArbitro)
+);
+
+
+
+
+create table juegos.tarea(
+idArea serial,
+nombreArea varchar(50),
+lugarArea varchar (50),
+primary key (idArea)
+);
+
+create table juegos.tevento(
+idEvento serial,
+fechaPartido date,
+horaPartido time,
+idArea int,
+idArbitro int,
+primary key (idEvento),
+foreign key (idArea)references juegos.tarea(idArea),
+foreign key (idArbitro)references juegos.tArbitro(idArbitro)
+);
+
+
+
+create table juegos.tevento_inscripcion(
+idDiciplina int,
+idEquipo int,
+idEvento int,
+resultado double precision,
+primary key (idEvento,idDiciplina,idEquipo),
+foreign key (idDiciplina)references juegos.tinscripcion(iddiciplina),
+foreign key (idEquipo)references juegos.tinscripcion(idequipo),
+
+foreign key (idEvento)references juegos.tevento(idEvento)
+);
+
+create table juegos.tusuario(
+idUsuario serial,
+nombreUsuario varchar(50),
+claveUsuario varchar(50),
+primary key (idUsuario)
+);
+
+
+
+create table juegos.tresultado(
+idResultado serial,
+ResultadoEquipo1 int,
+ResultadoEquipo2 int,
+ResultadoEquipo3 int,
+ResultadoEquipo4 int,
+ResultadoEquipo5 int,
+ResultadoEquipo6 int,
+idPartido int,
+primary key (idResultado),
+foreign key (idPartido)references juegos.tpartido(idPartido)
+);

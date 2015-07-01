@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Jugadores</title>
+</head>
+<body>
+	{% for jugador in Jugadores %}
+		<a href="{% url "jugador_detalle" jugador.id %}">
+			
+			{{jugador.cedula }} ? 
+		</a> <br/>		
+	{% endfor%}
+
+</body>
+</html>
