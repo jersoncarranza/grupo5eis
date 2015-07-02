@@ -13,28 +13,96 @@ from django.contrib.auth.models import AbstractUser
 
 # class Photo(models.Model):
 #     post = models.ForeignKey(Post, related_name='photos')
-#     image = models.ImageField(upload_to="%Y/%m/%d")
+#     image = Gmodels.ImageField(upload_to="%Y/%m/%d")
+
+#########Campeonato#######
 class Campeonato(models.Model):
     Nombre = models.CharField(max_length=100)
 
-  #  def __unicode__(self):
-   # 	return str(self.Nombre)
-
-class Equipo(models.Model):
+    def __str__(self):
+    	return str(self.Nombre)
+###########Facultad######
+class Facultad(models.Model):
     Nombre = models.CharField(max_length=50)
-    Genero = models.CharField(max_length=10)
+
+    def __str__(self):
+        return  str(self.Nombre)
+
+##########Escuela##########
+class Escuela(models.Model):
+    Nombre= models.CharField(max_length=50)
+    Facultad= models.ForeignKey("Facultad")
+
+    def __str__(self):
+        return str(self.Nombre)
+
+
+###########Genero######
+class Genero(models.Model):
+	Descripcion = models.CharField(max_length=12)
+
+	def __str__(self):
+		return str(self.Descripcion)
+
+###########Semestre#########
+class Semestre(models.Model):
+    Nivel    = models.CharField(max_length=10)
+
+    def __str__(self):
+        return str(self.Nivel)
+############Disciplina####
+class Disciplina(models.Model):
+    Nombre = models.CharField(max_length=50)
+    Reglamento = models.TextField(blank=True, null=True)
+    Costo = models.CharField(max_length=10)
+    Numero_Jugadores = models.CharField(max_length=2)
+    Campeonato = models.ForeignKey("Campeonato")
+
+    def __str__(self):
+        return str(self.Nombre)
+
+
+##########Jugador#########
+class Jugador(models.Model):
+    Apellidos = models.CharField(max_length=50)
+    Cedula    = models.CharField(max_length=10)
+    Equipo    = models.ForeignKey("Equipo")
+    Foto      = models.ImageField(upload_to='PlayerPhotos')
+    Nombres   = models.CharField(max_length=50)
+    Semestre  = models.ForeignKey("Semestre")
+    Telefono  = models.CharField(max_length=50)
+
+#########Equipo#########
+class Equipo(models.Model):
+    Genero = models.ForeignKey("Genero") 
+    Nombre = models.CharField(max_length=50)
 
     def __str__(self):
     	return str(self.Nombre)
 
-class Jugador(models.Model):
-    Cedula    = models.CharField(max_length=10)
-    Apellidos = models.CharField(max_length=50)
-    Nombres   = models.CharField(max_length=50)
-    Semestre  = models.CharField(max_length=50)
-    Telefono  = models.CharField(max_length=50)
-    Equipo = models.ForeignKey("Equipo")
+##########Arbitro##############
+class Arbitro(models.Model):
+    Nombre   = models.CharField(max_length=50)
+    Apellido = models.CharField(max_length=50)
+    Telefono = models.CharField(max_length=50)
 
+    def __str__(self):
+        return str(self.Nombre)
+
+##############Areas###########
+class Areas(models.Model):
+    Nombre = models.CharField(max_length=50)
+    Lugar  = models.CharField(max_length=50)
+
+    def __str__(self):
+        return str(self.Nombre)
+
+###########Disciplina################
+#class Inscripciones(models.Model):
+
+
+
+    
 
     #def __unicode__(self):
     #	return "{0} {1}".format(self.Nombres, self.Apellidos)

@@ -24,7 +24,7 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
+GRAPPELLI_ADMIN_TITLE = 'Administraciòn de Juegos'
 INSTALLED_APPS = (
     'grappelli',
     'django.contrib.admin',
@@ -104,3 +104,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+
+MEDIA_ROOT = os.sep.join(os.path.abspath(__file__).split(os.sep)[:-2] + ['media'])
+STATIC_ROOT = os.sep.join(os.path.abspath(__file__).split(os.sep)[:-2] + ['content'])
+MEDIA_URL = '/media/'
